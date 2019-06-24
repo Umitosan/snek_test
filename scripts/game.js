@@ -9,17 +9,24 @@ function Game(updateDur) {
   this.updateDuration = updateDur; // milliseconds duration between update()
   this.paused = false;
   this.bg = new Image();
-  this.boxy = undefined;
   this.pausedTxt = undefined;
   this.mode = 'init';
   this.snek = undefined;
+  this.food = undefined;
 
   this.init = function() {
     this.bg.src = 'bg1.png';
-    this.boxy = new Box(20,20,myColors.red,20,1);
-    this.snek = new SnekBW(0,0,60);
+    this.snek = new SnekBW(50,50,10);
     this.snek.init();
+    this.makeFood(1);
     this.lastUpdate = performance.now();
+  };
+
+  this.makeFood = function(quantity) {
+    let x = getRandomIntInclusive(20,780);
+    let y = getRandomIntInclusive(20,780);
+    this.food = new Food(x,y);
+    this.food.init();
   };
 
   this.pauseIt = function() {
@@ -40,8 +47,8 @@ function Game(updateDur) {
   };
 
   this.draw = function() {  // draw everything!
-    // this.boxy.draw();
     this.snek.draw();
+    if (this.food) { this.food.draw(); }
   }; // end draw
 
   this.update = function() {
@@ -55,8 +62,8 @@ function Game(updateDur) {
                 //   console.log('timesToUpdate = ', timesToUpdate);
                 // }
                 // general update area
-                // this.boxy.update();
                 this.snek.update();
+                if (this.food) { this.food.update(); }
               }
               this.lastUpdate = performance.now();
             } // end if

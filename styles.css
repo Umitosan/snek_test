@@ -10,7 +10,7 @@ body {
 }
 
 .main-container {
-  width: 1000px;
+  width: 800px;
   height: 100%;
   margin: 20px auto 0px auto;
   border-color: black;
@@ -55,8 +55,8 @@ body {
 
 .canvas-container {
   margin: 20px auto 50px auto;
-  width: 1002px;
-  height: 1002px;
+  width: 802px;
+  height: 802px;
   /* outline-color: red;
   outline-style: solid;
   outline-width: 1px; */

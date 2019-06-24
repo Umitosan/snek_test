@@ -94,41 +94,6 @@ function updateKeysTotal() {
   State.totalKeysDown = total;
 }
 
-function Box(x,y,color,size,vel) {
-  this.x = x;
-  this.y = y;
-  this.color = color;
-  this.size =  size;
-  this.xVel = vel;
-  this.yVel = vel;
-
-  this.draw = function() {
-    ctx.beginPath();
-    ctx.rect(this.x,this.y,this.size,this.size);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    // ctx.stroke();
-  };
-
-  this.update = function() {
-    if ((this.xVel > 0) && ((this.x + this.size + this.xVel) > canW)) {
-      this.xVel *= -1;
-    }
-    if ((this.xVel < 0) && ((this.x + this.xVel) < 0)) {
-      this.xVel *= -1;
-    }
-    if ((this.yVel > 0) && ((this.y + this.size + this.yVel) > canH)) {
-      this.yVel *= -1;
-    }
-    if ((this.yVel < 0) && ((this.y + this.yVel) < 0)) {
-      this.yVel *= -1;
-    }
-    this.x += this.xVel;
-    this.y += this.yVel;
-  };
-
-} // end box
-
 //////////////////////////////////////////////////////////////////////////////////
 // KEYBOARD INPUT
 //////////////////////////////////////////////////////////////////////////////////
@@ -143,46 +108,51 @@ function keyDown(event) {
     switch (keyWhich) {
         case 37: // Left arrow key
           State.keysDown.left = true;
-          // document.getElementById("key-left").style.backgroundColor = "pink";
+          console.log('key left');
           if (myGame.paused === false) { State.lastkey = 'left'; }
+          myGame.snek.changeDir('left');
           break;
         case 39: //Right arrow key
           State.keysDown.right = true;
-          // document.getElementById("key-right").style.backgroundColor = "pink";
+          console.log('key right');
           if (myGame.paused === false) { State.lastkey = 'right'; }
+          myGame.snek.changeDir('right');
           break;
         case 38: // Up arrow key
           State.keysDown.up = true;
-          // document.getElementById("key-up").style.backgroundColor = "pink";
+          console.log('key up');
           if (myGame.paused === false) { State.lastkey = 'up'; }
+          myGame.snek.changeDir('up');
           break;
         case 40: //Down arrow key
           State.keysDown.down = true;
-          // document.getElementById("key-down").style.backgroundColor = "pink";
+          console.log('key down');
           if (myGame.paused === false) { State.lastkey = 'down'; }
+          myGame.snek.changeDir('down');
           break;
         case 65: // A key
           State.keysDown.a = true;
-          // document.getElementById("key-A").style.backgroundColor = "pink";
+          console.log('key A');
           if (myGame.paused === false) { State.lastkey = 'left'; }
           break;
         case 68: // D key
           State.keysDown.d = true;
-          // document.getElementById("key-D").style.backgroundColor = "pink";
+          console.log('key A');
           if (myGame.paused === false) { State.lastkey = 'right'; }
           break;
         case 87: // W key
           State.keysDown.w = true;
-          // document.getElementById("key-W").style.backgroundColor = "pink";
+          console.log('key W');
           if (myGame.paused === false) { State.lastkey = 'up'; }
           break;
         case 83: // S key
           State.keysDown.s = true;
-          // document.getElementById("key-S").style.backgroundColor = "pink";
+          console.log('key S');
           if (myGame.paused === false) { State.lastkey = 'down'; }
           break;
         case 90: // Z key
           if (State.gameStarted === true) {  State.lastkey = 'Z'; }
+          console.log('key Z');
           break;
         case 191: // Slash key
           if (State.gameStarted === true) { State.lastkey = '/'; }
@@ -204,8 +174,8 @@ function keyDown(event) {
           break;
     } // switch
     updateKeysTotal();
-    $("#lastkey-name").text("'"+event.code+"'");
-    $("#lastkey-code").text(event.keyCode);
+    // $("#lastkey-name").text("'"+event.code+"'");
+    // $("#lastkey-code").text(event.keyCode);
 }
 
 function keyUp(event) {
@@ -373,6 +343,7 @@ $(document).ready(function() {
       State.gameStarted = true;
       myGame.updateDuration = (1000/defaultSimSpeed);
       myGame.lastUpdate = performance.now();
+      CANVAS.focus();
     } else {
       console.log('must reset before starting again');
     }
