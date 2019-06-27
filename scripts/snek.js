@@ -39,24 +39,32 @@ function SnekBW(x,y,bodySegmentsLen) {
   this.changeDir = function(newDir) {
     switch (newDir) {
       case "up":
-        this.body[0].xVel = 0;
-        this.body[0].yVel = -this.bodyPartSize;
-        this.dir = 'up';
+        if (this.dir !== "down") {
+          this.body[0].xVel = 0;
+          this.body[0].yVel = -this.bodyPartSize;
+          this.dir = 'up';
+        }
         break;
       case "down":
-        this.body[0].xVel = 0;
-        this.body[0].yVel = this.bodyPartSize;
-        this.dir = 'down';
+        if (this.dir !== "up") {
+          this.body[0].xVel = 0;
+          this.body[0].yVel = this.bodyPartSize;
+          this.dir = 'down';
+        }
         break;
       case "left":
-        this.body[0].xVel = -this.bodyPartSize;
-        this.body[0].yVel = 0;
-        this.dir = 'left';
+        if (this.dir !== "right") {
+          this.body[0].xVel = -this.bodyPartSize;
+          this.body[0].yVel = 0;
+          this.dir = 'left';
+        }
         break;
       case "right":
+        if (this.dir !== "right") {
         this.body[0].xVel = this.bodyPartSize;
         this.body[0].yVel = 0;
         this.dir = 'right';
+        }
         break;
       default:
     }
