@@ -108,46 +108,46 @@ function keyDown(event) {
     switch (keyWhich) {
         case 37: // Left arrow key
           State.keysDown.left = true;
-          console.log('key left');
-          if (myGame.paused === false) { State.lastkey = 'left'; }
+          // console.log('key left');
+          if (myGame.paused === false) { State.lastKey = 'left'; }
           myGame.snek.changeDir('left');
           break;
         case 39: //Right arrow key
           State.keysDown.right = true;
-          console.log('key right');
-          if (myGame.paused === false) { State.lastkey = 'right'; }
+          // console.log('key right');
+          if (myGame.paused === false) { State.lastKey = 'right'; }
           myGame.snek.changeDir('right');
           break;
         case 38: // Up arrow key
           State.keysDown.up = true;
-          console.log('key up');
-          if (myGame.paused === false) { State.lastkey = 'up'; }
+          // console.log('key up');
+          if (myGame.paused === false) { State.lastKey = 'up'; }
           myGame.snek.changeDir('up');
           break;
         case 40: //Down arrow key
           State.keysDown.down = true;
-          console.log('key down');
-          if (myGame.paused === false) { State.lastkey = 'down'; }
+          // console.log('key down');
+          if (myGame.paused === false) { State.lastKey = 'down'; }
           myGame.snek.changeDir('down');
           break;
         case 65: // A key
           State.keysDown.a = true;
-          console.log('key A');
-          if (myGame.paused === false) { State.lastkey = 'left'; }
+          // console.log('key A');
+          if (myGame.paused === false) { State.lastKey = 'left'; }
           break;
         case 68: // D key
           State.keysDown.d = true;
-          console.log('key A');
+          // console.log('key D');
           if (myGame.paused === false) { State.lastkey = 'right'; }
           break;
         case 87: // W key
           State.keysDown.w = true;
-          console.log('key W');
+          // console.log('key W');
           if (myGame.paused === false) { State.lastkey = 'up'; }
           break;
         case 83: // S key
           State.keysDown.s = true;
-          console.log('key S');
+          // console.log('key S');
           if (myGame.paused === false) { State.lastkey = 'down'; }
           break;
         case 90: // Z key

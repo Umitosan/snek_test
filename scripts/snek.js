@@ -5,18 +5,29 @@ function SnekBW(x,y,bodySegmentsLen) {
   this.body = undefined;
   this.bodyPartSize = 10;
   this.bodyLen = bodySegmentsLen;
-  this.updateInterval = 100;
+  this.updateInterval = 30;
   this.lastSnekUpdate = undefined;
+  this.dir = 'right';
 
   this.init = function() {
     console.log('snek init');
     this.body = [];
     let startY =  this.bodyPartSize * 10;
     for (let i = 0; i < this.bodyLen; i++) {
+      let col;
+      let rn = getRandomIntInclusive(1,3);
+      if ( (rn === 1) || (i == 0) ) {
+        col = "rgba(232, 140, 4, 1)"
+      } else if (rn === 2) {
+        col = "rgba(200, 10, 10, 1)"
+      } else {
+        col = "rgba(50, 50, 50, 1)"
+      }
+
       let newBodyPart = {
         "x": ( (canW / 3) - (this.bodyPartSize * (i + 1)) ),
         "y": startY,
-        "color": randColor("rgba"),
+        "color": col,
         "xVel": this.bodyPartSize,
         "yVel": 0
       };
@@ -30,18 +41,22 @@ function SnekBW(x,y,bodySegmentsLen) {
       case "up":
         this.body[0].xVel = 0;
         this.body[0].yVel = -this.bodyPartSize;
+        this.dir = 'up';
         break;
       case "down":
         this.body[0].xVel = 0;
         this.body[0].yVel = this.bodyPartSize;
+        this.dir = 'down';
         break;
       case "left":
         this.body[0].xVel = -this.bodyPartSize;
         this.body[0].yVel = 0;
+        this.dir = 'left';
         break;
       case "right":
         this.body[0].xVel = this.bodyPartSize;
         this.body[0].yVel = 0;
+        this.dir = 'right';
         break;
       default:
     }
