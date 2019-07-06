@@ -7,7 +7,7 @@ function SnekBW(x,y,bodySegmentsLen) {
   this.bodyLen = bodySegmentsLen;
   this.updateInterval = 30;
   this.lastSnekUpdate = undefined;
-  this.dir = 'right';
+  this.dir = "right";
 
   this.init = function() {
     console.log('snek init');
@@ -40,30 +40,34 @@ function SnekBW(x,y,bodySegmentsLen) {
     switch (newDir) {
       case "up":
         if (this.dir !== "down") {
+          console.log('last dir = ', this.dir);
           this.body[0].xVel = 0;
           this.body[0].yVel = -this.bodyPartSize;
-          this.dir = 'up';
+          this.dir = "up";
         }
         break;
       case "down":
         if (this.dir !== "up") {
+          console.log('last dir = ', this.dir);
           this.body[0].xVel = 0;
           this.body[0].yVel = this.bodyPartSize;
-          this.dir = 'down';
+          this.dir = "down";
         }
         break;
       case "left":
         if (this.dir !== "right") {
+          console.log('last dir = ', this.dir);
           this.body[0].xVel = -this.bodyPartSize;
           this.body[0].yVel = 0;
-          this.dir = 'left';
+          this.dir = "left";
         }
         break;
       case "right":
-        if (this.dir !== "right") {
-        this.body[0].xVel = this.bodyPartSize;
-        this.body[0].yVel = 0;
-        this.dir = 'right';
+        if (this.dir !== "left") {
+          console.log('last dir = ', this.dir);
+          this.body[0].xVel = this.bodyPartSize;
+          this.body[0].yVel = 0;
+          this.dir = "right";
         }
         break;
       default:
