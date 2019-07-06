@@ -16,7 +16,7 @@ function Game(updateDur) {
 
   this.init = function() {
     this.bg.src = 'bg1.png';
-    this.snek = new SnekBW(50,50,5);
+    this.snek = new SnekBW(50,50,50);
     this.snek.init();
     this.makeFood(1);
     this.lastUpdate = performance.now();

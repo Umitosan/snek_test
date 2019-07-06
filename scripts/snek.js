@@ -76,8 +76,37 @@ function SnekBW(x,y,bodySegmentsLen) {
 
   this.checkBodyCollision = function() {
     let collide = false;
+    for (let i = 3; i < (this.body.length-3); i++) { // ignore first 3 body segments
+      switch (this.dir) {
+        case "up":
+          if ( (this.body[0].y - this.body[i].y) <= (this.bodyPartSize+2) ) {
+            console.log("collide up");
+            collide = true;
+          }
+          break;
+        case "down":
+          if ( (this.body[i].y - this.body[0].y) <= (this.bodyPartSize+2) ) {
+            console.log("collide down");
+            collide = true;
+          }
+          break;
+        case "left":
+          if ( (this.body[i].x - this.body[0].x) <= (this.bodyPartSize+2) ) {
+            console.log("collide left");
+            collide = true;
+          }
+          break;
+        case "right":
+          if ( (this.body[0].x - this.body[i].x) <= (this.bodyPartSize+2) ) {
+            console.log("collide right");
+            collide = true;
+          }
+          break;
+        default:
 
-
+      }
+      this.body[i].x;
+    }
     return collide;
   };
 
@@ -113,6 +142,10 @@ function SnekBW(x,y,bodySegmentsLen) {
 
   this.update = function() {
     if ( (performance.now() - this.lastSnekUpdate) > this.updateInterval) {
+      if (this.checkBodyCollision() === true) {
+          console.log("body collided");
+          myGame.pauseIt();
+      }
       this.updatePosAndVel();
       this.checkBounds();
       this.lastSnekUpdate = performance.now();
