@@ -17,15 +17,14 @@ function SnekBW(x,y,bodySegmentsLen) {
       let col;
       let rn = getRandomIntInclusive(1,3);
       if ( (rn === 1) || (i == 0) ) {
-        col = "rgba(232, 140, 4, 1)"
+        col = "rgba(232, 140, 4, 1)";
       } else if (rn === 2) {
-        col = "rgba(200, 10, 10, 1)"
+        col = "rgba(200, 10, 10, 1)";
       } else {
-        col = "rgba(50, 50, 50, 1)"
+        col = "rgba(50, 50, 50, 1)";
       }
-
       let newBodyPart = {
-        "x": ( (canW / 3) - (this.bodyPartSize * (i + 1)) ),
+        "x": ( Math.floor(canW / 3) - (this.bodyPartSize * (i + 1)) ),
         "y": startY,
         "color": col,
         "xVel": this.bodyPartSize,
@@ -33,6 +32,7 @@ function SnekBW(x,y,bodySegmentsLen) {
       };
       this.body.push(newBodyPart);
     }
+    this.body[0].color = "rgba(0,200,200,1)";
     this.lastSnekUpdate = performance.now();
   };
 
@@ -67,20 +67,76 @@ function SnekBW(x,y,bodySegmentsLen) {
         }
         break;
       default:
+        console.log('changeDir probs: not a dir');
     }
   };
 
   this.checkBodyCollision = function() {
     let collide = false;
-
-
+    switch (this.dir) {
+      case "up":
+        for (let i = 3; i < (this.body.length - 3); i++) {  // first 3 segments dont' need to be checked, not possible to collide
+          if (this.body[i].y < this.body[0].y) {  // skip segements obviously out of range
+            if ( (Math.abs(this.body[0].x - this.body[i].x) <= 3) &&
+                 (Math.abs(this.body[0].y - this.body[i].y) <= (this.bodyPartSize + 1)) ) {
+              collide = true;
+              console.log("this.body[0] x,y = " + this.body[0].x + "," + this.body[0].y);
+              console.log("this.body[i] x,y = " + "[" + i + "]" + this.body[i].x + "," + this.body[i].y);
+              break;
+            }
+          }
+        }
+        break;
+      case "down":
+        for (let i = 3; i < (this.body.length - 3); i++) {  // first 3 segments dont' need to be checked, not possible to collide
+          if (this.body[i].y > this.body[0].y) {  // skip segements obviously out of range
+            if ( (Math.abs(this.body[0].x - this.body[i].x) <= 3) &&
+                 (Math.abs(this.body[0].y - this.body[i].y) <= (this.bodyPartSize + 1)) ) {
+              collide = true;
+              console.log("this.body[0] x,y = " + this.body[0].x + "," + this.body[0].y);
+              console.log("this.body[i] x,y = " + "[" + i + "]" + this.body[i].x + "," + this.body[i].y);
+              break;
+            }
+          }
+        }
+        break;
+      case "left":
+        for (let i = 3; i < (this.body.length - 3); i++) {  // first 3 segments dont' need to be checked, not possible to collide
+          if (this.body[i].x < this.body[0].x) {  // skip segements obviously out of range
+            if ( (Math.abs(this.body[0].y - this.body[i].y) <= 3) &&
+                 (Math.abs(this.body[0].x - this.body[i].x) <= (this.bodyPartSize + 1)) ) {
+              collide = true;
+              console.log("this.body[0] x,y = " + this.body[0].x + "," + this.body[0].y);
+              console.log("this.body[i] x,y = " + "[" + i + "]" + this.body[i].x + "," + this.body[i].y);
+              break;
+            }
+          }
+        }
+        break;
+      case "right":
+        for (let i = 3; i < (this.body.length - 3); i++) {  // first 3 segments dont' need to be checked, not possible to collide
+          if (this.body[i].x > this.body[0].x) {  // skip segements obviously out of range
+            if ( (Math.abs(this.body[0].y - this.body[i].y) <= 3) &&
+                 (Math.abs(this.body[0].x - this.body[i].x) <= (this.bodyPartSize + 1)) ) {
+              collide = true;
+              console.log("this.body[0] x,y = " + this.body[0].x + "," + this.body[0].y);
+              console.log("this.body[i] x,y = " + "[" + i + "]" + this.body[i].x + "," + this.body[i].y);
+              break;
+            }
+          }
+        }
+        break;
+      default:
+        console.log('checkBodyCollision probs: not a dir');
+    }
     return collide;
   };
 
   this.checkBounds = function() {
-    if ( ((this.body[0].x + this.bodyPartSize) > CANVAS.width) ||
+    if (this.checkBodyCollision()) myGame.pauseIt();
+    if ( ((this.body[0].x + this.bodyPartSize) > (CANVAS.width - this.bodyPartSize)) ||
        ((this.body[0].x - this.bodyPartSize) < 0) ||
-       ((this.body[0].y + this.bodyPartSize) > CANVAS.height) ||
+       ((this.body[0].y + this.bodyPartSize) > (CANVAS.height - this.bodyPartSize)) ||
        ((this.body[0].y - this.bodyPartSize) < 0)
        ) {
       myGame.pauseIt();
