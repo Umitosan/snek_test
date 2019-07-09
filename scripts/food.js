@@ -23,9 +23,10 @@ function Food(x,y) {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.strokeStyle = this.invColor;
-    ctx.arc(this.x,this.y,this.size,0,2 * Math.PI); // x , y , radius, sAngle , eAngle
+    // ctx.rect(this.x,this.y,10,10);
+    ctx.arc(this.x+5,this.y+5,this.size,0,2 * Math.PI); // x , y , radius, sAngle , eAngle
     ctx.fill();
-    ctx.stroke();
+    // ctx.stroke();
   };
 
   this.update = function() {
