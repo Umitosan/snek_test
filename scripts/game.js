@@ -13,6 +13,7 @@ function Game(updateDur) {
   this.mode = 'init';
   this.snek = undefined;
   this.food = undefined;
+  this.foodAnim = undefined;
   this.gridOn = false;
 
   this.init = function() {
@@ -106,6 +107,8 @@ function Game(updateDur) {
     };
     this.snek.body.push(newBodyPart);
     this.snek.bodyLen += 1;
+    this.foodAnim = new FoodEatAnim1(this.food.x, this.food.y);
+    this.foodAnim.init();
     this.food = undefined;
     this.makeFood(1);
   };
@@ -143,6 +146,7 @@ function Game(updateDur) {
     this.snek.draw();
     if (this.food) { this.food.draw(); }
     if (this.gridOn) { this.drawGrid(); }
+    if (this.foodAnim) { this.foodAnim.draw(); }
   }; // end draw
 
   this.update = function() {
@@ -159,6 +163,10 @@ function Game(updateDur) {
                 this.snek.update();
                 if (this.food) { this.food.update(); }
                 if (this.checkFoodCollision()) this.eatFood();
+                if (this.foodAnim) {
+                  this.foodAnim.update();
+                  if (this.foodAnim.flaggedForDeath === true) { this.foodAnim = undefined; }
+                }
               }
               this.lastUpdate = performance.now();
             } // end if
